@@ -5,7 +5,6 @@ sequenceDiagram
     participant browser
     participant server
 
-
     browser->>server: User sends a note that triggers a POST
     activate server
 
