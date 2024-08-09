@@ -16,9 +16,10 @@ const FeedbackForm = ({ handleGood, handleNeutral, HandleBad }) => {
   );
 };
 
-const DisplayFeedback = ({ good, neutral, bad }) => {
+const Statistics = ({ good, neutral, bad }) => {
   const total = good + neutral + bad;
-
+  const average = (good - bad) / total;
+  const porcent = (good * 100) / total;
   return (
     <>
       <h2>Statistics</h2>
@@ -26,38 +27,24 @@ const DisplayFeedback = ({ good, neutral, bad }) => {
         <p>No feedback given</p>
       ) : (
         <>
-          <FeedbackAmount good={good} neutral={neutral} bad={bad} />
-          <TotalFeedback total={total} />
-          <AverageFeedback total={total} good={good} bad={bad} />
-          <PositiveFeedback total={total} good={good} />{" "}
+          <StatisticLine text="Good" value={good} />
+          <StatisticLine text="Neutral" value={neutral} />
+          <StatisticLine text="Bad" value={bad} />
+          <StatisticLine text="All" value={total} />
+          <StatisticLine text="Average" value={average} />
+          <StatisticLine text="Positive" value={porcent + " %"} />
         </>
       )}
     </>
   );
 };
 
-const FeedbackAmount = ({ good, neutral, bad }) => {
+const StatisticLine = ({ text, value }) => {
   return (
-    <ul>
-      <li>Good - {good}</li>
-      <li>Neutral - {neutral}</li>
-      <li>Bad - {bad}</li>
-    </ul>
+    <p>
+      {text} {value}
+    </p>
   );
-};
-
-const TotalFeedback = ({ total }) => {
-  return <p>Total: {total}</p>;
-};
-
-const AverageFeedback = ({ good, total, bad }) => {
-  const average = (good - bad) / total;
-  return <p>Average: {average}</p>;
-};
-
-const PositiveFeedback = ({ good, total }) => {
-  const porcent = (good * 100) / total;
-  return <p>Positive: {porcent} %</p>;
 };
 
 function App() {
@@ -72,7 +59,7 @@ function App() {
         handleNeutral={() => setNeutral(neutral + 1)}
         HandleBad={() => setBad(bad + 1)}
       />
-      <DisplayFeedback good={good} neutral={neutral} bad={bad} />
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   );
 }
