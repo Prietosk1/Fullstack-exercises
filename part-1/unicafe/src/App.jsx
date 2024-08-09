@@ -16,14 +16,22 @@ const FeedbackForm = ({ handleGood, handleNeutral, HandleBad }) => {
   );
 };
 
-const DisplayFeedback = (props) => {
+const DisplayFeedback = ({ good, neutral, bad }) => {
+  const total = good + neutral + bad;
+
   return (
     <>
       <h2>Statistics</h2>
-      <FeedbackAmount {...props} />
-      <TotalFeedback {...props} />
-      <AverageFeedback {...props} />
-      <PositiveFeedback {...props} />
+      {total === 0 ? (
+        <p>No feedback given</p>
+      ) : (
+        <>
+          <FeedbackAmount good={good} neutral={neutral} bad={bad} />
+          <TotalFeedback total={total} />
+          <AverageFeedback total={total} good={good} bad={bad} />
+          <PositiveFeedback total={total} good={good} />{" "}
+        </>
+      )}
     </>
   );
 };
@@ -38,19 +46,16 @@ const FeedbackAmount = ({ good, neutral, bad }) => {
   );
 };
 
-const TotalFeedback = ({ good, neutral, bad }) => {
-  const total = good + neutral + bad;
+const TotalFeedback = ({ total }) => {
   return <p>Total: {total}</p>;
 };
 
-const AverageFeedback = ({ good, neutral, bad }) => {
-  const total = good + neutral + bad;
+const AverageFeedback = ({ good, total, bad }) => {
   const average = (good - bad) / total;
   return <p>Average: {average}</p>;
 };
 
-const PositiveFeedback = ({ good, neutral, bad }) => {
-  const total = good + neutral + bad;
+const PositiveFeedback = ({ good, total }) => {
   const porcent = (good * 100) / total;
   return <p>Positive: {porcent} %</p>;
 };
