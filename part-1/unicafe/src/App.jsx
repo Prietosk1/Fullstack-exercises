@@ -16,17 +16,43 @@ const FeedbackForm = ({ handleGood, handleNeutral, HandleBad }) => {
   );
 };
 
-const DisplayFeedback = ({ good, neutral, bad }) => {
+const DisplayFeedback = (props) => {
   return (
     <>
       <h2>Statistics</h2>
-      <ul>
-        <li>Good - {good}</li>
-        <li>Neutral - {neutral}</li>
-        <li>Bad - {bad}</li>
-      </ul>
+      <FeedbackAmount {...props} />
+      <TotalFeedback {...props} />
+      <AverageFeedback {...props} />
+      <PositiveFeedback {...props} />
     </>
   );
+};
+
+const FeedbackAmount = ({ good, neutral, bad }) => {
+  return (
+    <ul>
+      <li>Good - {good}</li>
+      <li>Neutral - {neutral}</li>
+      <li>Bad - {bad}</li>
+    </ul>
+  );
+};
+
+const TotalFeedback = ({ good, neutral, bad }) => {
+  const total = good + neutral + bad;
+  return <p>Total: {total}</p>;
+};
+
+const AverageFeedback = ({ good, neutral, bad }) => {
+  const total = good + neutral + bad;
+  const average = (good - bad) / total;
+  return <p>Average: {average}</p>;
+};
+
+const PositiveFeedback = ({ good, neutral, bad }) => {
+  const total = good + neutral + bad;
+  const porcent = (good * 100) / total;
+  return <p>Positive: {porcent} %</p>;
 };
 
 function App() {
