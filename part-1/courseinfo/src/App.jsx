@@ -5,6 +5,7 @@ const Course = ({ name, parts }) => {
     <>
       <Header name={name} />
       <Content parts={parts} />
+      <Total parts={parts} />
     </>
   );
 };
@@ -23,15 +24,12 @@ const Content = ({ parts }) => {
   );
 };
 
-const Total = (props) => {
-  return (
-    <p>
-      Number of exercises{" "}
-      {props.parts[0].exercises +
-        props.parts[1].exercises +
-        props.parts[2].exercises}
-    </p>
+const Total = ({ parts }) => {
+  const totalExercises = parts.reduce(
+    (sum, actualValue) => sum + actualValue.exercises,
+    0
   );
+  return <strong>Total of {totalExercises} exercises</strong>;
 };
 
 const Part = (props) => {
