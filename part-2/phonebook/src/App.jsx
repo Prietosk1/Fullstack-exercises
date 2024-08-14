@@ -6,7 +6,13 @@ function App() {
 
   const addPerson = (event) => {
     event.preventDefault();
-    setPersons(persons.concat({ name: newName }));
+    const isRepeated = persons.some((object) => object.name === newName);
+    if (isRepeated) {
+      alert(`${newName} is already added to the phonebook`);
+    } else {
+      setPersons(persons.concat({ name: newName }));
+    }
+
     setNewName("");
   };
 
