@@ -12,27 +12,48 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault();
-    const isRepeated = persons.some((object) => object.name === newName);
+    const fixedName = newName.trim();
+    const newPerson = {
+      name: fixedName,
+      number: newNumber,
+    };
+    const isRepeated = persons.some((object) => object.name === fixedName);
     if (isRepeated) {
-      alert(`${newName} is already added to the phonebook`);
+      if (
+        window.confirm(
+          `${fixedName} is already added to the phonebook, replace the old number with this one?`
+        )
+      ) {
+        updatePerson(newPerson);
+      }
     } else {
-      const newPerson = {
-        name: newName,
-        number: newNumber,
-      };
       personService.createPerson(newPerson).then((returnedPerson) => {
         console.log(returnedPerson);
         setPersons(persons.concat(returnedPerson));
-        setNewNumber("");
       });
+      setNewNumber("");
+      setNewName("");
     }
-    setNewName("");
   };
 
   const deletePerson = (id) => {
     personService.deletePerson(id).then((deletedPerson) => {
       console.log(deletedPerson);
       setPersons(persons.filter((person) => person.id !== id));
+    });
+  };
+
+  const updatePerson = (newPerson) => {
+    const { id } = persons.find((person) => person.name === newPerson.name);
+    personService.updatePerson(id, newPerson).then((returnedPerson) => {
+      console.log(returnedPerson);
+      setPersons(
+        persons.map((person) =>
+          person.id === id ? { ...newPerson, id } : person
+        )
+      );
+      setNewNumber("");
+      setNewName("");
     });
   };
 
