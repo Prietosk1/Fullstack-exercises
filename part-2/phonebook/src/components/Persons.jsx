@@ -1,7 +1,7 @@
 import Person from "./Person";
 
 /* eslint-disable react/prop-types */
-const Persons = ({ persons, search }) => {
+const Persons = ({ deletePerson, persons, search }) => {
   return (
     <>
       {persons.map((person) => {
@@ -14,6 +14,8 @@ const Persons = ({ persons, search }) => {
               key={person.name}
               name={person.name}
               number={person.number}
+              id={person.id}
+              deletePerson={deletePerson}
             />
           );
         }

@@ -29,6 +29,13 @@ const App = () => {
     setNewName("");
   };
 
+  const deletePerson = (id) => {
+    personService.deletePerson(id).then((deletedPerson) => {
+      console.log(deletedPerson);
+      setPersons(persons.filter((person) => person.id !== id));
+    });
+  };
+
   const handleSearch = (event) => {
     setSearch(event.target.value);
   };
@@ -64,7 +71,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h3>Numbers</h3>
-      <Persons persons={persons} search={search} />
+      <Persons deletePerson={deletePerson} persons={persons} search={search} />
     </div>
   );
 };
