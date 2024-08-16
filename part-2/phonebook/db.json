@@ -3,22 +3,52 @@
     {
       "name": "Arto Hellas",
       "number": "040-123456",
-      "id": 1
+      "id": "1"
     },
     {
       "name": "Ada Lovelace",
       "number": "39-44-5323523",
-      "id": 2
+      "id": "2"
     },
     {
       "name": "Dan Abramov",
       "number": "12-43-234345",
-      "id": 3
+      "id": "3"
     },
     {
       "name": "Mary Poppendieck",
       "number": "39-23-6423122",
-      "id": 4
+      "id": "4"
+    },
+    {
+      "id": "04bc",
+      "name": "Juan david",
+      "number": "300 000 000"
+    },
+    {
+      "id": "3fcb",
+      "name": "joseee",
+      "number": "30100"
+    },
+    {
+      "id": "c31e",
+      "name": "Juancho",
+      "number": "09010101"
+    },
+    {
+      "id": "e1fd",
+      "name": "Johan",
+      "number": "11221 1212121"
+    },
+    {
+      "id": "082a",
+      "name": "Azul",
+      "number": "003 030 3030"
+    },
+    {
+      "id": "e805",
+      "name": "ese",
+      "number": "123"
     }
   ]
 }
