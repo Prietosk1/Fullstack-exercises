@@ -54,17 +54,27 @@ const App = () => {
 
   const updatePerson = (newPerson) => {
     const { id } = persons.find((person) => person.name === newPerson.name);
-    personService.updatePerson(id, newPerson).then((returnedPerson) => {
-      console.log(returnedPerson);
-      setPersons(
-        persons.map((person) =>
-          person.id === id ? { ...newPerson, id } : person
-        )
-      );
-      setNewNumber("");
-      setNewName("");
-      showNotification(`Updated phone number of ${newPerson.name} !`);
-    });
+    personService
+      .updatePerson(id, newPerson)
+      .then((returnedPerson) => {
+        console.log(returnedPerson);
+        setPersons(
+          persons.map((person) =>
+            person.id === id ? { ...newPerson, id } : person
+          )
+        );
+
+        showNotification(`Updated phone number of ${newPerson.name} !`);
+      })
+      .catch(() => {
+        showNotification(
+          `Information of ${newPerson.name} has already been removed from the server.`,
+          true
+        );
+        setPersons(persons.filter((person) => person.id !== id));
+      });
+    setNewName("");
+    setNewNumber("");
   };
 
   const showNotification = (message, isError = false) => {

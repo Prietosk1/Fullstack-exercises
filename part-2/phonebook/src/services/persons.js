@@ -16,7 +16,11 @@ const deletePerson = (id) => {
 const updatePerson = (id, newPerson) => {
   return axios
     .put(`${baseUrl}/${id}`, newPerson)
-    .then((response) => response.date);
+    .then((response) => response.date)
+    .catch((error) => {
+      console.log(error);
+      throw new Error();
+    });
 };
 
 export default {
