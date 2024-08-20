@@ -17,7 +17,7 @@ const CountriesList = ({ countries, search }) => {
         <>
           {filteredCountries.map((country) => {
             const name = country.name.common;
-            return <SingleCountry key={name} name={name} />;
+            return <SingleCountry key={name} name={name} country={country} />;
           })}
         </>
       ) : countriesAmount === 1 ? (
