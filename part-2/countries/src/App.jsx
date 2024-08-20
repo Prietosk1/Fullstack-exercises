@@ -7,7 +7,7 @@ import CountriesList from "./components/CountriesList";
 function App() {
   const [country, setCountry] = useState("");
   const [countriesList, setCountriesList] = useState([]);
-
+  const [error, setError] = useState(false);
   const handleCountryChange = (event) => {
     setCountry(event.target.value);
   };
@@ -16,7 +16,11 @@ function App() {
     console.log("Getting countries...");
     countriesService
       .getAllCountries()
-      .then((countries) => setCountriesList(countries));
+      .then((countries) => setCountriesList(countries))
+      .catch((error) => {
+        console.log(error);
+        setError(true);
+      });
   };
 
   useEffect(getCountries, []);
@@ -26,7 +30,11 @@ function App() {
       <h1>Countries</h1>
       <SearchBar country={country} handleCountryChange={handleCountryChange} />
       {countriesList.length === 0 ? (
-        <p>Loading countries...</p>
+        <p>
+          {error
+            ? "Unexpected error loading the countries, please try again."
+            : "Loading countries..."}
+        </p>
       ) : (
         <>
           {country === "" ? (
